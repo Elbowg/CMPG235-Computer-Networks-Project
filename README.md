@@ -1,163 +1,173 @@
-# CMPG325 Computer Networks Project
-## North-West Cold Chain Logistics – Vryburg
-
-![Network Project](https://img.shields.io/badge/CMPG325-Computer%20Networks-blue)
-![Status](https://img.shields.io/badge/Status-Milestone%201-orange)
-![Cisco Packet Tracer](https://img.shields.io/badge/Simulation-Cisco%20Packet%20Tracer-red)
+# Logistics Network Design and Implementation
 
 ## Project Overview
 
-This project involves the design, implementation, configuration and testing of a computer network for **North-West Cold Chain Logistics**, a logistics organisation based in Vryburg.
+This project focuses on the design and implementation of a computer network for a logistics-oriented organisation. The network was designed to support different organisational functions while providing appropriate network segmentation, resource access and management capabilities.
 
-The project follows a network design and implementation process in which the client's requirements are analysed before developing the physical topology, logical topology and IP addressing plan. The proposed network will subsequently be implemented and tested using Cisco Packet Tracer.
-
-The network design also considers the client's planned expansion into an additional floor/area and the requirement for secure network-device management using **SSH**.
+The project was developed in stages, beginning with the client requirements and network design and progressing to implementation and testing using Cisco Packet Tracer.
 
 ---
 
-## Client Information
+# Project Objectives
 
-| Item | Details |
-|---|---|
-| Client | North-West Cold Chain Logistics |
-| Location | Vryburg |
-| Client ID | CLI-046 |
-| Project ID | CMPG325-2026-046 |
-| Assigned Network | `192.168.28.0/24` |
-| Networking Challenge | SSH – Secure Device Management Plane |
-| Simulation Software | Cisco Packet Tracer |
+The main objectives of the project are to:
 
----
-
-## Project Objectives
-
-The main objectives of this project are to:
-
-- Analyse the networking requirements of the client.
-- Design an appropriate physical network topology.
-- Design an appropriate logical network topology.
-- Develop an IP addressing plan using the assigned `192.168.28.0/24` network.
-- Provide appropriate network connectivity and services.
-- Design the network to support future expansion.
-- Provide network coverage for the client's additional floor/area.
-- Implement secure network-device management using SSH.
-- Implement the proposed network in Cisco Packet Tracer.
-- Configure and test the network to verify connectivity and functionality.
-- Document the design, implementation and testing process.
+- Analyse the client's networking requirements.
+- Design a suitable physical and logical network topology.
+- Develop an IP addressing plan.
+- Implement VLAN segmentation.
+- Implement inter-VLAN routing.
+- Provide a dedicated server network.
+- Provide a dedicated network management VLAN.
+- Implement secure remote management using SSH.
+- Test and verify the implemented network.
 
 ---
 
-## Network Design
+# Network Design
 
-The proposed network is divided into functional logical segments using VLANs:
+The network is divided into several VLANs according to the functional requirements of the organisation.
 
 | VLAN | Name | Purpose |
 |---:|---|---|
-| 10 | Administration | Administration users |
-| 20 | Operations | Operations users |
-| 30 | Server | Network services |
-| 40 | Future Floor | Future expansion |
-| 99 | Management | Network-device management and SSH |
-
-The network uses a router to provide inter-VLAN routing, while switches provide connectivity to the different network segments.
-
-A dedicated management VLAN (VLAN 99) is included to support secure management of network devices through SSH.
-
----
+| 10 | ADMIN | Administration users |
+| 20 | OPERATIONS | Operations users |
+| 30 | SERVER | Server resources |
+| 40 | FUTURE | Future Floor |
+| 99 | MANAGEMENT | Network device management |
 
 ## IP Addressing
 
-The client's assigned network is:
-
-`192.168.28.0/24`
-
-The network is divided using VLSM to provide appropriately sized subnets for the different VLANs while reserving address space for future expansion.
-
-| VLAN | Network | CIDR | Purpose |
-|---:|---|---:|---|
-| 10 | `192.168.28.0` | `/27` | Administration |
-| 20 | `192.168.28.32` | `/27` | Operations |
-| 30 | `192.168.28.64` | `/28` | Server |
-| 40 | `192.168.28.80` | `/27` | Future Floor |
-| 99 | `192.168.28.112` | `/28` | Management |
-| — | `192.168.28.128` | `/25` | Reserved for future expansion |
+| VLAN | Network | Default Gateway |
+|---:|---|---|
+| 10 | 192.168.28.0/27 | 192.168.28.1 |
+| 20 | 192.168.28.32/27 | 192.168.28.33 |
+| 30 | 192.168.28.64/28 | 192.168.28.65 |
+| 40 | 192.168.28.96/27 | 192.168.28.97 |
+| 99 | 192.168.28.128/28 | 192.168.28.129 |
 
 ---
 
-## Physical Network
+# Network Components
 
-The physical topology represents the physical placement and connection of network devices within the organisation.
+The implemented network consists of:
 
-The current floor contains:
+- R1 router
+- SW1-MAIN
+- SW2-FUTURE
+- Administration PCs
+- Operations PCs
+- Future Floor PCs
+- Server
+- AccessPoint-PT
 
-- 1 Router
-- 1 Main Switch
-- 3 Administration PCs
-- 4 Operations PCs
-- 1 Server
-
-The future expansion floor contains:
-
-- 1 Future-Floor Switch
-- 2 PCs
-- 1 Wireless Access Point
-
-The future floor is connected to the main network through an uplink from the main switch.
+R1 provides inter-VLAN routing using a router-on-a-stick configuration.
 
 ---
 
-## Logical Network
+# Milestone 1 – Client Design Review
 
-The logical topology represents the organisation of the network into separate logical segments.
+Milestone 1 focused on the planning and design of the proposed network.
 
-The proposed logical design consists of:
+### Deliverables
 
-- Administration VLAN
-- Operations VLAN
+- Client Requirements
+- Physical Topology
+- Logical Topology
+- IP Addressing Plan
+
+The design established the VLAN structure, network segmentation and addressing scheme that were subsequently implemented during Milestone 2.
+
+---
+
+# Milestone 2 – Client Implementation Review
+
+Milestone 2 focused on implementing and testing the proposed network in Cisco Packet Tracer.
+
+### Implemented Features
+
+- VLAN segmentation
+- 802.1Q trunking
+- Inter-VLAN routing
 - Server VLAN
 - Future Floor VLAN
 - Management VLAN
+- Secure SSH remote management
 
-Inter-VLAN communication will be provided by the router. The management VLAN will be used for secure management and SSH access to network devices.
+## SSH Implementation
+
+SSH was implemented on:
+
+- R1
+- SW1-MAIN
+- SW2-FUTURE
+
+The network devices use VLAN 99 as the dedicated management network.
+
+### Management Addresses
+
+| Device | IP Address |
+|---|---|
+| R1 | 192.168.28.129 |
+| SW1-MAIN | 192.168.28.131 |
+| SW2-FUTURE | 192.168.28.132 |
+
+SSH was tested from an authorised workstation to each network device.
 
 ---
 
-## Future Expansion
+# Testing
 
-The network has been designed with scalability in mind. The project brief specifies that an additional floor/area may be occupied by the client and requires network coverage.
+The implemented network was tested using:
 
-A dedicated logical network and switch have therefore been included for the future floor. Address space is also reserved within the `192.168.28.0/24` network to allow additional devices and network infrastructure to be added as the organisation grows.
+- VLAN verification
+- Trunk verification
+- Default gateway connectivity
+- Inter-VLAN connectivity
+- Server connectivity
+- Management VLAN connectivity
+- SSH remote-access testing
 
----
-
-## SSH Secure Device Management
-
-SSH is the assigned networking challenge for this project.
-
-During the implementation phase, SSH will be configured on the relevant network devices to allow secure remote management. Management addresses will be provided through VLAN 99.
-
-The SSH implementation will subsequently be verified and demonstrated in Cisco Packet Tracer.
+The testing confirmed that the major network components and implemented SSH feature were functioning as intended.
 
 ---
 
-## Repository Structure
+# Project Files
 
-The repository will be updated throughout the project as each stage is completed.
+## Milestone 1
 
-```text
-CMPG325-North-West-Cold-Chain-Logistics/
-│
-├── README.md
-│
-├── Milestone-1/
-│   ├── Client-Requirements/
-│   ├── Physical-Topology/
-│   ├── Logical-Topology/
-│   └── IP-Addressing-Plan/
-│
-├── Packet-Tracer/
-│   └── Network-Implementation.pkt
-│
-├── Documentation/
-│
-└── Evidence/
+The Milestone 1 folder contains:
+
+- Client requirements
+- Physical topology
+- Logical topology
+- IP addressing plan
+
+## Milestone 2
+
+The Milestone 2 folder contains:
+
+- Cisco Packet Tracer implementation
+- Implementation documentation
+- Testing evidence
+- SSH implementation evidence
+
+---
+
+# Technologies Used
+
+- Cisco Packet Tracer
+- IPv4
+- VLANs
+- IEEE 802.1Q
+- Router-on-a-Stick
+- SSH
+- GitHub
+
+---
+
+# Project Status
+
+**Milestone 1:** Completed
+
+**Milestone 2:** Implemented and tested
