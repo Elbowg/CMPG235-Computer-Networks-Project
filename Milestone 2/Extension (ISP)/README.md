@@ -1,4 +1,3 @@
-
 # ISP Connectivity Extension
 ## North-West Cold Chain Logistics Network
 
