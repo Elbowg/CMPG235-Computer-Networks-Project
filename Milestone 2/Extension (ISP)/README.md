@@ -53,7 +53,7 @@ Internal Server ────┘            |
                            198.51.100.10
 ```
 
-*Replace this text diagram with a screenshot of the actual Packet Tracer topology if available.*
+
 
 ### 4. IP Addressing
 
